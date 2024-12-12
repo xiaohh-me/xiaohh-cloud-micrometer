@@ -1,0 +1,13 @@
+server:
+  port: 10010
+
+spring:
+  application:
+    name: xiaohh-account
+  profiles:
+    active: dev
+
+mybatis:
+  mapper-locations:
+    - classpath:mapper/account/*Mapper.xml
+  type-aliases-package: work.xiaohh.api.account.entity

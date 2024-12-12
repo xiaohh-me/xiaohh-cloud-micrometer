@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      discovery:
+        namespace: xiaohh-cloud-dev
+      config:
+        namespace: xiaohh-cloud-dev
+        file-extension: yaml

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>work.xiaohh</groupId>
+        <artifactId>xiaohh-api</artifactId>
+        <version>xiaohh-1.0.0</version>
+    </parent>
+
+    <artifactId>xiaohh-account-api</artifactId>
+
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <!-- OpenFeign 依赖 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <!-- Jackson 注解依赖 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 公共的http代码模块 -->
+        <dependency>
+            <groupId>work.xiaohh</groupId>
+            <artifactId>xiaohh-common-http</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+</project>

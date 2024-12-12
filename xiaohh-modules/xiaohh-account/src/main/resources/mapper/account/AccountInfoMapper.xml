@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.xiaohh.account.mapper.AccountInfoMapper">
+
+    <!-- 订单信息表基本映射 -->
+    <resultMap id="AccountInfoResult" type="AccountInfo">
+        <id property="accountInfoId" column="account_info_id"/>
+        <result property="accountName" column="account_name"/>
+        <result property="balance" column="balance"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!-- 订单信息表基本查询语句 -->
+    <sql id="AccountInfoSql">
+        select account_info_id, account_name, balance, create_time, update_time from `t_account_info`
+    </sql>
+
+    <!-- 查询订单信息列表 -->
+    <select id="selectAccountInfo" resultMap="AccountInfoResult">
+        <include refid="AccountInfoSql"/>
+        <where>
+            <if test="accountInfoId != null">and `account_info_id` = #{accountInfoId}</if>
+            <if test="accountName != null and accountName != ''">and `account_name` like concat('%', #{accountName}, '%')</if>
+            <if test="balance != null">and `balance` = #{balance}</if>
+            <if test="createTime != null">and `create_time` = #{createTime}</if>
+            <if test="updateTime != null">and `update_time` = #{updateTime}</if>
+        </where>
+    </select>
+
+    <!-- 根据订单信息ID查询订单信息 -->
+    <select id="selectAccountInfoByAccountInfoId" resultMap="AccountInfoResult">
+        <include refid="AccountInfoSql"/>
+        where `account_info_id` = #{accountInfoId}
+    </select>
+
+    <!-- 新增一条订单信息 -->
+    <insert id="insertAccountInfo" useGeneratedKeys="true" keyProperty="accountInfoId">
+        insert into `t_account_info`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="accountName != null and accountName != ''">`account_name`,</if>
+            <if test="balance != null">`balance`,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="accountName != null and accountName != ''">#{accountName},</if>
+            <if test="balance != null">${balance},</if>
+        </trim>
+    </insert>
+
+    <!-- 修改一条订单信息 -->
+    <update id="updateAccountInfo">
+        update `t_account_info`
+        <set>
+            <if test="accountName != null and accountName != ''">`account_name` = #{accountName},</if>
+            <if test="balance != null">`balance` = #{balance},</if>
+        </set>
+        where `account_info_id` = #{accountInfoId}
+    </update>
+
+    <!-- 扣减账户余额 -->
+    <update id="reduceAccountInfoBalance">
+        update `t_account_info` set `balance` = `balance` - #{balance} where `account_info_id` = #{accountInfoId} and balance &gt;= #{balance}
+    </update>
+
+    <!-- 删除一条订单信息 -->
+    <delete id="deleteAccountInfoByAccountInfoId">
+        delete from `t_account_info` where `account_info_id` = #{accountInfoId}
+    </delete>
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.xiaohh.order.mapper.OrderInfoMapper">
+
+    <!-- 订单信息表基本映射 -->
+    <resultMap id="OrderInfoResult" type="OrderInfo">
+        <id property="orderInfoId" column="order_info_id"/>
+        <result property="orderAmount" column="order_amount"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!-- 订单信息表基本查询语句 -->
+    <sql id="OrderInfoSql">
+        select `order_info_id`, `order_amount`, `create_time`, `update_time` from `t_order_info`
+    </sql>
+
+    <!-- 查询订单信息列表 -->
+    <select id="selectOrderInfo" resultMap="OrderInfoResult">
+        <include refid="OrderInfoSql"/>
+        <where>
+            <if test="orderInfoId != null">and `order_info_id` = #{orderInfoId}</if>
+            <if test="orderAmount != null">and `order_amount` = #{orderAmount}</if>
+            <if test="createTime != null">and `create_time` = #{createTime}</if>
+            <if test="updateTime != null">and `update_time` = #{updateTime}</if>
+        </where>
+    </select>
+
+    <!-- 根据订单信息ID查询订单信息 -->
+    <select id="selectOrderInfoByOrderInfoId" resultMap="OrderInfoResult">
+        <include refid="OrderInfoSql"/>
+        where `order_info_id` = #{orderInfoId}
+    </select>
+
+    <!-- 新增一条订单信息 -->
+    <insert id="insertOrderInfo" useGeneratedKeys="true" keyProperty="orderInfoId">
+        insert into `t_order_info` (`order_amount`) values (#{orderAmount})
+    </insert>
+
+    <!-- 修改一条订单信息 -->
+    <update id="updateOrderInfo">
+        update `t_order_info` set `order_amount` = #{orderAmount} where order_info_id = #{orderInfoId}
+    </update>
+
+    <!-- 删除一条订单信息 -->
+    <delete id="deleteOrderInfoByOrderInfoId">
+        delete from `t_order_info` where `order_info_id` = #{orderInfoId}
+    </delete>
+</mapper>

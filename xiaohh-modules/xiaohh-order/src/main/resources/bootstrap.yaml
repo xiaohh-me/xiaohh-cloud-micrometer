@@ -1,0 +1,13 @@
+server:
+  port: 10020
+
+spring:
+  application:
+    name: xiaohh-order
+  profiles:
+    active: dev
+
+mybatis:
+  mapper-locations:
+    - classpath:mapper/order/*Mapper.xml
+  type-aliases-package: work.xiaohh.order.entity

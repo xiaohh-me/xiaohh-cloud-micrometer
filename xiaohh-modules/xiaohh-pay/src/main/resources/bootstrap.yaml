@@ -1,0 +1,13 @@
+server:
+  port: 10030
+
+spring:
+  application:
+    name: xiaohh-pay
+  profiles:
+    active: dev
+
+mybatis:
+  mapper-locations:
+    - classpath:mapper/pay/*Mapper.xml
+  type-aliases-package: work.xiaohh.api.pay.entity

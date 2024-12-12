@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.xiaohh.pay.mapper.PayInfoMapper">
+
+    <!-- 支付信息表基本映射 -->
+    <resultMap id="PayInfoResult" type="PayInfo">
+        <id property="payInfoId" column="pay_info_id"/>
+        <result property="orderInfoId" column="order_info_id"/>
+        <result property="paidAmount" column="paid_amount"/>
+        <result property="accountInfoId" column="account_info_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!-- 支付信息表基本查询语句 -->
+    <sql id="PayInfoSql">
+        select `pay_info_id`, `order_info_id`, `paid_amount`, `account_info_id`, `create_time`, `update_time`
+        from `t_pay_info`
+    </sql>
+
+    <!-- 查询支付信息列表 -->
+    <select id="selectPayInfo" resultMap="PayInfoResult">
+        <include refid="PayInfoSql"/>
+        <where>
+            <if test="payInfoId != null">and `pay_info_id` = #{payInfoId}</if>
+            <if test="orderInfoId != null">and `order_info_id` = #{orderInfoId}</if>
+            <if test="paidAmount != null">and `paid_amount` = #{paidAmount}</if>
+            <if test="accountInfoId != null">and `account_info_id` = #{accountInfoId}</if>
+            <if test="createTime != null">and `create_time` = #{createTime}</if>
+            <if test="updateTime != null">and `update_time` = #{updateTime}</if>
+        </where>
+    </select>
+
+    <!-- 根据支付信息ID查询支付信息 -->
+    <select id="selectPayInfoByPayInfoId" resultMap="PayInfoResult">
+        <include refid="PayInfoSql"/>
+        where `pay_info_id` = #{payInfoId}
+    </select>
+
+    <!-- 新增一条支付信息 -->
+    <insert id="insertPayInfo" useGeneratedKeys="true" keyProperty="payInfoId">
+        insert into `t_pay_info`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderInfoId != null">`order_info_id`,</if>
+            <if test="paidAmount != null">`paid_amount`,</if>
+            <if test="accountInfoId != null">`account_info_id`,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderInfoId != null">#{orderInfoId},</if>
+            <if test="paidAmount != null">#{paidAmount},</if>
+            <if test="accountInfoId != null">#{accountInfoId},</if>
+        </trim>
+    </insert>
+
+    <!-- 修改一条支付信息 -->
+    <update id="updatePayInfo">
+        update `t_pay_info`
+        <set>
+            <if test="orderInfoId != null">`order_info_id` = #{orderInfoId},</if>
+            <if test="paidAmount != null">`paid_amount` = #{paidAmount},</if>
+            <if test="accountInfoId != null">`account_info_id` = #{accountInfoId},</if>
+        </set>
+        where `pay_info_id` = #{payInfoId}
+    </update>
+
+    <!-- 删除一条支付信息 -->
+    <delete id="deletePayInfoByPayInfoId">
+        delete from `t_pay_info` where `pay_info_id` = #{payInfoId}
+    </delete>
+</mapper>
