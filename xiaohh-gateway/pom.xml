@@ -49,6 +49,33 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
+
+        <!-- Micrometer 整合 Brave 追踪器 -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-brave</artifactId>
+        </dependency>
+        <!-- Micrometer 指标追踪 -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing</artifactId>
+        </dependency>
+        <!-- Micrometer 观察者 -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-observation</artifactId>
+        </dependency>
+        <!-- 整合 Openfeign -->
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-micrometer</artifactId>
+        </dependency>
+
+        <!-- 将追踪器添加到zipkin -->
+        <dependency>
+            <groupId>io.zipkin.reporter2</groupId>
+            <artifactId>zipkin-reporter-brave</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
