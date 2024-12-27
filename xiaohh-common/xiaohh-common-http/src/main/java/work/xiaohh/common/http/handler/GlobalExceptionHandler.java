@@ -33,6 +33,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<Void> handleThrowable(Throwable e) {
         log.error("系统发生未知异常", e);
-        return ResponseEntity.failed(e.getMessage());
+        return ResponseEntity.failed(e.getCause().getMessage());
     }
 }

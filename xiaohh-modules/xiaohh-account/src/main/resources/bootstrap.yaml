@@ -12,11 +12,3 @@ mybatis:
     - classpath:mapper/account/*Mapper.xml
   type-aliases-package: work.xiaohh.api.account.entity
 
-management:
-  zipkin:
-    tracing:
-      endpoint: http://127.0.0.1:9411/api/v2/spans
-  tracing:
-    sampling:
-      probability: 1.0
-

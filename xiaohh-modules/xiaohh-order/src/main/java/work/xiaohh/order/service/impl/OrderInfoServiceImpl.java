@@ -1,9 +1,9 @@
 package work.xiaohh.order.service.impl;
 
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import work.xiaohh.api.pay.entity.PayInfo;
 import work.xiaohh.api.pay.remote.PayInfoRemote;
 import work.xiaohh.order.entity.OrderInfo;
@@ -65,7 +65,8 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
      * @param orderInfo 订单信息实体
      * @return 受影响行数
      */
-    @Transactional
+//    @Transactional
+    @GlobalTransactional
     @Override
     public int insertOrderInfo(OrderInfo orderInfo) {
         // 调用数据库的新增接口
@@ -80,6 +81,7 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
             // 发生了错误
             throw new RuntimeException("添加支付信息发生错误");
         }
+//        if (true) throw new RuntimeException("测试发生错误");
         return effectRows;
     }
 

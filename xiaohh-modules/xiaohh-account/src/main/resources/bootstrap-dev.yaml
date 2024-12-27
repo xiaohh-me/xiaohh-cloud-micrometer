@@ -7,3 +7,25 @@ spring:
       config:
         namespace: xiaohh-cloud-dev
         file-extension: yaml
+
+management:
+  zipkin:
+    tracing:
+      endpoint: http://127.0.0.1:9411/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0
+
+seata:
+  data-source-proxy-mode: AT
+  registry:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      namespace: xiaohh-cloud-dev
+      group: SEATA_GROUP
+      application: seata-server
+    type: nacos
+  service:
+    vgroup-mapping:
+      default_tx_group: default
+  tx-service-group: default_tx_group
